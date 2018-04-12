@@ -52,8 +52,8 @@ module OmniAuth
       def steam_id
         @steam_id ||= begin
                         claimed_id = openid_response.display_identifier.split('/').last
-                        expected_uri = %r{^https?://steamcommunity.com/openid/id/#{claimed_id}$}
-                        unless expected_uri.match?(openid_response.endpoint.claimed_id)
+                        expected_uri = %r{\Ahttps?://steamcommunity\.com/openid/id/#{claimed_id}\Z}
+                        unless expected_uri.match(openid_response.endpoint.claimed_id)
                           raise 'Steam Claimed ID mismatch!'
                         end
                         claimed_id
